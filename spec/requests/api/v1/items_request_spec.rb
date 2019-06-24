@@ -23,6 +23,15 @@ describe 'items api' do
     item = JSON.parse(response.body)
 
     expect(item["id"]).to eq(id)
+  end
 
+  it 'can create a new item' do
+    item_params = {name: 'green apple', description: 'A round green apple'}
+
+    post "/api/v1/items/", params: {item: item_params}
+    item = Item.last
+
+    expect(response).to be_successful
+    expect(item.name).to eq(item_params[:name])
   end
 end
