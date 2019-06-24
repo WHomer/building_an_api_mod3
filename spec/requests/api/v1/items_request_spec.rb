@@ -34,4 +34,17 @@ describe 'items api' do
     expect(response).to be_successful
     expect(item.name).to eq(item_params[:name])
   end
+
+  it 'can update an existing record' do
+    id = create(:item).id
+    previous_name = Item.last.name
+    item_params = {name: "Grape"}
+
+    put "/api/v1/items/#{id}", params: {item: item_params}
+    item = Item.find_by(id: id)
+
+    expect(response).to be_successful
+    expect(item.name).to_not eq(previous_name)
+    expect(item.name).to eq(item_params[:name])
+  end
 end

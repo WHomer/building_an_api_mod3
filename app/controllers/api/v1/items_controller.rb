@@ -12,6 +12,10 @@ class Api::V1::ItemsController < ApplicationController
     render json: Item.create(items_params)
   end
 
+  def update
+    render json: Item.update(params[:id], items_params)
+  end
+
   private
   def items_params
     params.require(:item).permit(:name, :description)
